@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBC – Slow Bikes Championship | Regolamento Ufficiale</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Bebas+Neue&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #CC0000;
+    --red-bright: #FF1A1A;
+    --red-glow: rgba(204,0,0,0.4);
+    --dark: #111111;
+    --dark-mid: #1a1a1a;
+    --dark-card: #1e1e1e;
+    --dark-border: #2a2a2a;
+    --white: #ffffff;
+    --grey: #888888;
+    --grey-light: #cccccc;
+    --gold: #d4a017;
+    --silver: #a8a8a8;
+    --bronze: #cd7f32;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--dark);
+    color: var(--white);
+    font-family: 'Exo 2', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgba(180,0,0,0.12) 0%, transparent 70%),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.012) 60px,
+        rgba(255,255,255,0.012) 61px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.012) 60px,
+        rgba(255,255,255,0.012) 61px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 60px 20px 40px;
+    overflow: hidden;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 300px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+  }
+
+  .logo-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 28px;
+    animation: logoFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .logo-wrapper img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 30px rgba(204,0,0,0.6)) drop-shadow(0 0 60px rgba(204,0,0,0.25));
+    border-radius: 50%;
+  }
+
+  .logo-ring {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 1px solid rgba(204,0,0,0.3);
+    animation: ringPulse 3s ease-in-out infinite;
+  }
+
+  .logo-ring-outer {
+    position: absolute;
+    inset: -24px;
+    border-radius: 50%;
+    border: 1px solid rgba(204,0,0,0.12);
+    animation: ringPulse 3s ease-in-out infinite 0.5s;
+  }
+
+  @keyframes ringPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.02); }
+  }
+
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 90px);
+    letter-spacing: 0.08em;
+    line-height: 0.9;
+    background: linear-gradient(180deg, #fff 0%, #aaa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .header-subtitle {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(14px, 2.5vw, 20px);
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+    animation: fadeDown 0.8s ease 0.15s both;
+  }
+
+  .header-badge {
+    display: inline-block;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    border: 1px solid var(--dark-border);
+    padding: 6px 20px;
+    border-radius: 2px;
+    animation: fadeDown 0.8s ease 0.3s both;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 20px 80px;
+  }
+
+  /* ── INTRO ── */
+  .intro-block {
+    background: linear-gradient(135deg, rgba(204,0,0,0.08) 0%, rgba(30,30,30,0.6) 100%);
+    border: 1px solid rgba(204,0,0,0.2);
+    border-left: 4px solid var(--red);
+    padding: 28px 32px;
+    margin-bottom: 50px;
+    border-radius: 0 4px 4px 0;
+    animation: fadeIn 0.8s ease 0.4s both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-block::before {
+    content: 'SBC';
+    position: absolute;
+    right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 100px;
+    color: rgba(204,0,0,0.04);
+    pointer-events: none;
+    letter-spacing: 0.05em;
+  }
+
+  .intro-block p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--grey-light);
+    font-weight: 300;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 48px;
+    animation: fadeIn 0.6s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section:nth-child(1) { animation-delay: 0.5s; }
+  .section:nth-child(2) { animation-delay: 0.65s; }
+  .section:nth-child(3) { animation-delay: 0.8s; }
+  .section:nth-child(4) { animation-delay: 0.95s; }
+  .section:nth-child(5) { animation-delay: 1.1s; }
+  .section:nth-child(6) { animation-delay: 1.25s; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--dark-border);
+    position: relative;
+  }
+
+  .section-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--red);
+    background: rgba(204,0,0,0.1);
+    border: 1px solid rgba(204,0,0,0.25);
+    padding: 4px 10px;
+    border-radius: 2px;
+    min-width: 36px;
+    text-align: center;
+  }
+
+  .section-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(20px, 3.5vw, 28px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+
+  /* ── FORMAT CARDS ── */
+  .format-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .format-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 4px;
+    padding: 24px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+
+  .format-card:hover {
+    border-color: rgba(204,0,0,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px rgba(204,0,0,0.08);
+  }
+
+  .format-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), transparent);
+  }
+
+  .format-card .card-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .format-card .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .format-card ul {
+    list-style: none;
+  }
+
+  .format-card ul li {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--grey-light);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4;
+  }
+
+  .format-card ul li:last-child { border-bottom: none; }
+
+  .format-card ul li::before {
+    content: '';
+    display: block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  /* ── POINTS TABLE ── */
+  .points-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .points-table-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .points-table-card .pt-header {
+    background: rgba(204,0,0,0.12);
+    border-bottom: 1px solid rgba(204,0,0,0.2);
+    padding: 14px 18px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+
+  .points-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.2s;
+  }
+
+  .points-row:hover { background: rgba(255,255,255,0.03); }
+  .points-row:last-child { border-bottom: none; }
+
+  .points-pos {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pos-icon { font-size: 14px; }
+
+  .points-val {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--red);
+  }
+
+  .points-row:first-child .points-pos { color: var(--gold); }
+  .points-row:nth-child(2) .points-pos { color: var(--silver); }
+  .points-row:nth-child(3) .points-pos { color: var(--bronze); }
+  .points-row:nth-child(n+4) .points-pos { color: var(--grey-light); }
+
+  /* ── RULE ITEMS ── */
+  .rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .rule-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 4px;
+    padding: 16px 20px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+
+  .rule-item:hover {
+    border-color: rgba(204,0,0,0.3);
+    transform: translateX(4px);
+  }
+
+  .rule-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    filter: grayscale(0.2);
+  }
+
+  .rule-text {
+    font-size: 14px;
+    line-height: 1.65;
+    font-weight: 300;
+    color: var(--grey-light);
+  }
+
+  /* ── TOKEN SYSTEM ── */
+  .token-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .token-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 4px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .token-card:hover { border-color: rgba(204,0,0,0.4); }
+
+  .token-card .tk-amount {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--red);
+    text-shadow: 0 0 20px rgba(204,0,0,0.3);
+    margin-bottom: 4px;
+  }
+
+  .token-card .tk-label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 16px;
+  }
+
+  .token-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .token-card ul li {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--grey-light);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .token-card ul li::before {
+    content: '›';
+    color: var(--red);
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.3;
+    flex-shrink: 0;
+  }
+
+  .token-card::after {
+    content: attr(data-token);
+    position: absolute;
+    right: -10px; bottom: -15px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: rgba(204,0,0,0.04);
+    pointer-events: none;
+  }
+
+  @media (max-width: 500px) {
+    .token-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── STEWARD SECTION ── */
+  .steward-box {
+    background: linear-gradient(135deg, rgba(204,0,0,0.07), var(--dark-card));
+    border: 1px solid rgba(204,0,0,0.2);
+    border-radius: 4px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .steward-box::before {
+    content: '⚖';
+    position: absolute;
+    right: 24px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 80px;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 40px 20px 50px;
+    border-top: 1px solid var(--dark-border);
+  }
+
+  .footer-flag {
+    font-size: 32px;
+    margin-bottom: 14px;
+    animation: flagWave 2s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  @keyframes flagWave {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  .footer-motto {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(22px, 4vw, 38px);
+    letter-spacing: 0.1em;
+    background: linear-gradient(90deg, var(--red), #fff, var(--red));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+    margin-bottom: 10px;
+  }
+
+  @keyframes shimmer {
+    to { background-position: 200% center; }
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--grey);
+    text-transform: uppercase;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0 30px;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dark-border));
+  }
+
+  .divider::after {
+    background: linear-gradient(270deg, transparent, var(--dark-border));
+  }
+
+  .divider span {
+    font-size: 18px;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-wrapper">
+    <div class="logo-ring-outer"></div>
+    <div class="logo-ring"></div>
+    <img src="WhatsApp_Image_2026-05-03_at_21_32_52.jpeg" alt="SBC Logo">
+  </div>
+  <div class="header-subtitle">MotoGP Esports League</div>
+  <h1 class="header-title">Slow Bikes<br>Championship</h1>
+  <div class="header-badge">Regolamento Ufficiale — Stagione 2026</div>
+</header>
+
+<main>
+
+  <!-- INTRO -->
+  <div class="intro-block">
+    <p>La <strong>SBC (Slow Bikes Championship)</strong> è un campionato neonato di MotoGP26 Esports, nato con l'obiettivo di offrire competizione accessibile e divertente. La lega è composta da ragazzi di 5ª superiore, pensata per piloti che vogliono mettersi alla prova in un ambiente competitivo ma equilibrato.</p>
+  </div>
+
+  <!-- 1. FORMATI -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">Formati di Gara</h2>
+    </div>
+    <div class="format-grid">
+      <div class="format-card">
+        <div class="card-label">Formato A</div>
+        <div class="card-title">Standard</div>
+        <ul>
+          <li>Qualifiche brevi</li>
+          <li>Gara al 35%</li>
+        </ul>
+      </div>
+      <div class="format-card">
+        <div class="card-label">Formato B</div>
+        <div class="card-title">Endurance</div>
+        <ul>
+          <li>Qualifiche complete (Q1 + Q2)</li>
+          <li>Gara al 50%</li>
+        </ul>
+      </div>
+      <div class="format-card">
+        <div class="card-label">Formato C</div>
+        <div class="card-title">Speciale</div>
+        <ul>
+          <li>Qualifica a tentativo unico</li>
+          <li>Sprint race</li>
+          <li>Gara al 35% con griglia invertita</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. PUNTEGGIO -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Sistema di Punteggio</h2>
+    </div>
+    <div class="points-section">
+      <div class="points-table-card">
+        <div class="pt-header">🏁 Gara Principale</div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥇</span> 1°</span><span class="points-val">12 PTS</span></div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥈</span> 2°</span><span class="points-val">10 PTS</span></div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥉</span> 3°</span><span class="points-val">8 PTS</span></div>
+        <div class="points-row"><span class="points-pos">4°</span><span class="points-val">6 PTS</span></div>
+        <div class="points-row"><span class="points-pos">5°</span><span class="points-val">4 PTS</span></div>
+        <div class="points-row"><span class="points-pos">6°</span><span class="points-val">2 PTS</span></div>
+      </div>
+      <div class="points-table-card">
+        <div class="pt-header">⏱ Bonus Qualifiche (Endurance)</div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥇</span> Pole</span><span class="points-val">3 PTS</span></div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥈</span> 2°</span><span class="points-val">2 PTS</span></div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥉</span> 3°</span><span class="points-val">1 PTS</span></div>
+      </div>
+      <div class="points-table-card">
+        <div class="pt-header">⚡ Sprint Race (Speciale)</div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥇</span> 1°</span><span class="points-val">6 PTS</span></div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥈</span> 2°</span><span class="points-val">5 PTS</span></div>
+        <div class="points-row"><span class="points-pos"><span class="pos-icon">🥉</span> 3°</span><span class="points-val">4 PTS</span></div>
+        <div class="points-row"><span class="points-pos">4°</span><span class="points-val">3 PTS</span></div>
+        <div class="points-row"><span class="points-pos">5°</span><span class="points-val">2 PTS</span></div>
+        <div class="points-row"><span class="points-pos">6°</span><span class="points-val">1 PTS</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. COMPORTAMENTO -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Comportamento in Pista</h2>
+    </div>
+    <div class="rules-list">
+      <div class="rule-item">
+        <span class="rule-icon">🏍️</span>
+        <span class="rule-text">In caso di ritiro, il pilota è tenuto a rientrare ai box in modo sicuro e senza ostacolare gli altri.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">🎥</span>
+        <span class="rule-text">Tutte le sessioni — qualifiche e gare — devono essere registrate. La registrazione è obbligatoria per la validità dei reclami.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">🤝</span>
+        <span class="rule-text">È obbligatorio mantenere un comportamento corretto e sportivo in pista in ogni momento.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">⚖️</span>
+        <span class="rule-text">Eventuali infrazioni saranno valutate dagli steward e potranno comportare penalità di vario tipo.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. RECLAMI -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Gestione Reclami</h2>
+    </div>
+    <div class="token-grid">
+      <div class="token-card" data-token="6">
+        <div class="tk-amount">6</div>
+        <div class="tk-label">Gettoni Reclamo / Stagione</div>
+        <ul>
+          <li>Utilizzabile per contatti o comportamenti scorretti</li>
+          <li>Se il reclamo è valido, il gettone viene restituito</li>
+          <li>Se infondato o dispersivo, il gettone va perso</li>
+          <li>Prove video chiare obbligatorie</li>
+        </ul>
+      </div>
+      <div class="token-card" data-token="3">
+        <div class="tk-amount">3</div>
+        <div class="tk-label">Gettoni Challenge / Team</div>
+        <ul>
+          <li>Per contestare le decisioni degli steward</li>
+          <li>Contestazione accettata → gettone restituito</li>
+          <li>Contestazione respinta → gettone perso</li>
+          <li>Le decisioni finali sono insindacabili</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. STEWARD -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2 class="section-title">Decisioni degli Steward</h2>
+    </div>
+    <div class="steward-box">
+      <div class="rules-list">
+        <div class="rule-item" style="border:none; background:transparent; padding:10px 0;">
+          <span class="rule-icon">📋</span>
+          <span class="rule-text">Le decisioni degli steward sono considerate definitive al termine della loro delibera.</span>
+        </div>
+        <div class="rule-item" style="border:none; background:transparent; padding:10px 0;">
+          <span class="rule-icon">🎯</span>
+          <span class="rule-text">È possibile contestarle utilizzando i gettoni challenge a disposizione di ogni team (3 per stagione).</span>
+        </div>
+        <div class="rule-item" style="border:none; background:transparent; padding:10px 0;">
+          <span class="rule-icon">✅</span>
+          <span class="rule-text">In caso di contestazione accettata, il gettone challenge viene restituito; in caso contrario, viene perso definitivamente.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. NORME AGGIUNTIVE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2 class="section-title">Norme Aggiuntive</h2>
+    </div>
+    <div class="rules-list">
+      <div class="rule-item">
+        <span class="rule-icon">🎬</span>
+        <span class="rule-text">I reclami devono essere accompagnati da prove video chiare e inequivocabili. Senza video, il reclamo non sarà preso in considerazione.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">🙏</span>
+        <span class="rule-text">È richiesto rispetto verso commissari e altri piloti in ogni fase del campionato, dentro e fuori dalla pista.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">🔒</span>
+        <span class="rule-text">Le decisioni finali, salvo contestazione tramite challenge, sono insindacabili e non soggette ad ulteriori discussioni.</span>
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">📝</span>
+        <span class="rule-text">L'organizzazione si riserva il diritto di modificare il regolamento per migliorare l'esperienza di gara nel corso della stagione.</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-flag">🏁</div>
+  <div class="footer-motto">Gas Aperto… Con Calma!</div>
+  <div class="footer-copy">SBC – Slow Bikes Championship · MotoGP Esports League · 2026</div>
+</footer>
+
+</body>
+</html>
